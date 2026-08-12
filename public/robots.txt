@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow internal API endpoints from search index
+Disallow: /api/
+
+# Host configuration
+Host: https://cmmanikandan.in
+
+# Sitemaps
+Sitemap: https://cmmanikandan.in/sitemap.xml
