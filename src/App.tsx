@@ -31,7 +31,7 @@ const AnimatedRoutes: React.FC<{ onOpenResumeModal: () => void }> = ({ onOpenRes
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -6 }}
         transition={{ duration: 0.22, ease: "easeInOut" }}
-        className="flex-grow flex flex-col"
+        className="flex-1 flex flex-col bg-[#FCFAF5]"
       >
         <Routes location={location}>
           <Route path="/" element={<HomePage onOpenResumeModal={onOpenResumeModal} />} />
@@ -64,11 +64,11 @@ export const App: React.FC = () => {
         <Navbar onOpenResumeModal={() => setIsResumeModalOpen(true)} />
 
         {/* Dynamic Route Pages with Fast Smooth Transitions */}
-        <main className="flex-grow flex flex-col">
+        <main className="flex-1 flex flex-col bg-[#FCFAF5]">
           <AnimatedRoutes onOpenResumeModal={() => setIsResumeModalOpen(true)} />
         </main>
 
-        {/* Global Footer */}
+        {/* Global Footer with Navy background reaching bottom */}
         <Footer />
 
         {/* Floating Back to Top Button */}

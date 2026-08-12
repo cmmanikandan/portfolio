@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-[#192841] text-[#FCFAF5] border-t border-white/10 py-10 sm:py-12">
+    <footer className="mt-auto w-full bg-[#192841] text-[#FCFAF5] border-t border-white/10 py-10 sm:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         
         {/* Top Footer Row */}
