@@ -89,9 +89,9 @@ export const ProjectDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Visual Mockup Showcase Banner */}
-      <div className="w-full max-w-3xl mx-auto rounded-3xl overflow-hidden shadow-md border border-[#192841]/15">
-        <ProjectMockupPreview project={project} />
+      {/* Full Visual Mockup Showcase Banner */}
+      <div className="w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-[#192841]/15">
+        <ProjectMockupPreview project={project} variant="detail" />
       </div>
 
       {/* Problem vs Solution 2-Column Grid */}
