@@ -9,6 +9,11 @@
     --font-mono: 'JetBrains Mono', monospace;
   }
 
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   body {
     font-family: var(--font-sans);
     background-color: #FCFAF5;
@@ -57,10 +62,10 @@
 /* 3D Floating Animation */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
   50% {
-    transform: translateY(-8px) rotate(1deg);
+    transform: translateY(-6px);
   }
 }
 
