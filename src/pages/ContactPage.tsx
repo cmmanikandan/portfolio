@@ -22,18 +22,27 @@ export const ContactPage: React.FC = () => {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
+    if (submitError) {
+      setSubmitError(null);
+    }
   };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = "Please enter your name.";
+    if (!formData.name.trim()) {
+      newErrors.name = "Please enter your name.";
+    }
     if (!formData.email.trim()) {
       newErrors.email = "Please enter your email address.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       newErrors.email = "Please enter a valid email address.";
     }
-    if (!formData.subject.trim()) newErrors.subject = "Please specify a subject.";
-    if (!formData.message.trim()) newErrors.message = "Please write your message.";
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Please specify a subject.";
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Please write your message.";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -47,30 +56,33 @@ export const ContactPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      if (siteConfig.formspreeId && siteConfig.formspreeId !== "YOUR_FORM_ID") {
-        const response = await fetch(`https://formspree.io/f/${siteConfig.formspreeId}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify(formData)
-        });
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim()
+        })
+      });
 
-        if (response.ok) {
-          setIsSubmitted(true);
-          setFormData({ name: "", email: "", subject: "", message: "" });
-        } else {
-          window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
-          setIsSubmitted(true);
-        }
-      } else {
-        window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
+      const result = await response.json().catch(() => null);
+
+      if (response.ok && result?.success) {
         setIsSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSubmitError(
+          result?.error || "Something went wrong while sending your message. Please try again."
+        );
       }
-    } catch {
-      window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
-      setIsSubmitted(true);
+    } catch (err) {
+      console.error("Submission network error:", err);
+      setSubmitError("Something went wrong while sending your message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -227,14 +239,14 @@ export const ContactPage: React.FC = () => {
                   <CheckCircle2 className="w-7 h-7 text-[#192841]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#192841]">
-                  Thanks for reaching out! Your message has been sent.
+                  Message sent successfully. I'll get back to you soon.
                 </h3>
                 <p className="text-xs text-[#6F7885]">
-                  I usually respond within 24 hours.
+                  A notification has been delivered to Manikandan Prabhu via hello@cmmanikandan.in.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="h-11 px-5 rounded-xl text-xs font-semibold bg-[#F5F1E8] border border-[#192841] text-[#192841] hover:bg-[#F7E7CE] transition-colors mt-2"
+                  className="h-11 px-5 rounded-xl text-xs font-semibold bg-[#F5F1E8] border border-[#192841] text-[#192841] hover:bg-[#F7E7CE] transition-colors mt-2 cursor-pointer"
                 >
                   Send Another Message
                 </button>
@@ -352,11 +364,11 @@ export const ContactPage: React.FC = () => {
                   )}
                 </div>
 
-                {/* Submit: 52px full width */}
+                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-[52px] px-6 rounded-xl text-[15px] font-semibold bg-[#192841] text-white hover:bg-[#233758] hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(25,40,65,0.12)] transition-all duration-200 disabled:opacity-50 inline-flex items-center justify-center gap-2"
+                  className="w-full h-[52px] px-6 rounded-xl text-[15px] font-semibold bg-[#192841] text-white hover:bg-[#233758] hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(25,40,65,0.12)] transition-all duration-200 disabled:opacity-50 inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>

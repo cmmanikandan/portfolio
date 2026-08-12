@@ -22,7 +22,7 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
     const timer = setTimeout(() => {
       setIsVisible(false);
       if (onComplete) onComplete();
-    }, 650);
+    }, 750);
 
     return () => clearTimeout(timer);
   }, [onComplete, shouldReduceMotion]);
@@ -35,11 +35,11 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
         <motion.div
           key="intro-loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeOut" } }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#FCFAF5] text-[#192841] select-none pointer-events-none"
+          exit={{ opacity: 0, transition: { duration: 0.35, ease: "easeInOut" } }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#FCFAF5] text-[#192841] select-none"
         >
           <motion.div
-            initial={{ scale: 0.96, opacity: 0 }}
+            initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
             className="flex flex-col items-center gap-4"
@@ -50,10 +50,13 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
                 src={logoImg}
                 alt="MP Logo"
                 className="w-full h-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/logo.png";
+                }}
               />
             </div>
 
-            {/* Typography brand label (Matching Light Theme Plus Jakarta Sans 600 weight) */}
+            {/* Typography brand label */}
             <motion.div
               initial={{ y: 6, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -61,15 +64,14 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
               className="text-center space-y-0.5"
             >
               <span
-                className="text-base sm:text-lg tracking-[-0.02em] text-[#192841] block font-semibold"
+                className="text-base sm:text-lg tracking-[-0.02em] text-[#192841] block font-bold"
                 style={{
-                  fontFamily: "'Plus Jakarta Sans', 'Manrope', 'Inter', sans-serif",
-                  fontWeight: 600
+                  fontFamily: "'Plus Jakarta Sans', 'Manrope', 'Inter', sans-serif"
                 }}
               >
                 Manikandan Prabhu
               </span>
-              <span className="block text-[11px] font-medium tracking-wider text-[#6B7280] uppercase">
+              <span className="block text-[11px] font-semibold tracking-wider text-[#6B7280] uppercase">
                 Java Full Stack Developer
               </span>
             </motion.div>
