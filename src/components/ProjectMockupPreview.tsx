@@ -17,24 +17,24 @@ export const ProjectMockupPreview: React.FC<ProjectMockupPreviewProps> = ({ proj
       : `${project.id}.vercel.app`;
 
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[260px] lg:min-h-[280px] rounded-2xl bg-[#192841] border border-[#192841]/15 overflow-hidden flex flex-col group/preview shadow-md">
+      <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] max-h-[240px] sm:max-h-[280px] rounded-2xl bg-[#192841] border border-[#192841]/15 overflow-hidden flex flex-col group/preview shadow-sm">
         
         {/* Browser Top Chrome Bar */}
-        <div className="h-8 sm:h-9 bg-[#192841] px-3.5 flex items-center justify-between border-b border-white/10 shrink-0 select-none">
+        <div className="h-7 sm:h-8 bg-[#192841] px-3 flex items-center justify-between border-b border-white/10 shrink-0 select-none">
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
+            <div className="w-2 h-2 rounded-full bg-red-400/80" />
+            <div className="w-2 h-2 rounded-full bg-amber-400/80" />
+            <div className="w-2 h-2 rounded-full bg-emerald-400/80" />
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-white/10 border border-white/10 text-[10.5px] text-[#FCFAF5]/90 font-mono max-w-[200px] sm:max-w-xs truncate">
-            <Globe className="w-3 h-3 text-[#F7E7CE] shrink-0" />
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-white/10 border border-white/10 text-[10px] text-[#FCFAF5]/90 font-mono max-w-[180px] sm:max-w-xs truncate">
+            <Globe className="w-2.5 h-2.5 text-[#F7E7CE] shrink-0" />
             <span className="truncate">{domainText}</span>
           </div>
 
-          <div className="text-[10px] font-bold text-[#F7E7CE] uppercase tracking-wider flex items-center gap-1">
+          <div className="text-[9.5px] font-bold text-[#F7E7CE] uppercase tracking-wider flex items-center gap-1">
             <span className="hidden sm:inline">Live</span>
-            <ExternalLink className="w-3 h-3" />
+            <ExternalLink className="w-2.5 h-2.5" />
           </div>
         </div>
 
@@ -50,15 +50,15 @@ export const ProjectMockupPreview: React.FC<ProjectMockupPreviewProps> = ({ proj
           />
           
           {/* Subtle overlay gradient on bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#192841]/60 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#192841]/60 to-transparent pointer-events-none" />
 
           {/* Quick pill tag */}
-          <div className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-[#192841]/90 backdrop-blur-md border border-white/20 text-[10px] font-semibold text-[#FCFAF5] flex items-center gap-1.5 shadow-sm">
+          <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-[#192841]/90 backdrop-blur-md border border-white/20 text-[9.5px] font-semibold text-[#FCFAF5] flex items-center gap-1.5 shadow-sm">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
             </span>
-            <span>{project.title} Production App</span>
+            <span>{project.title}</span>
           </div>
         </div>
       </div>
@@ -67,9 +67,9 @@ export const ProjectMockupPreview: React.FC<ProjectMockupPreviewProps> = ({ proj
 
   // Fallback if no image provided
   return (
-    <div className="relative w-full h-full min-h-[190px] sm:min-h-[220px] lg:min-h-[260px] rounded-2xl bg-[#FCFAF5] border border-[#192841]/15 overflow-hidden flex items-center justify-center text-[#6F7885] text-xs">
+    <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] max-h-[240px] sm:max-h-[280px] rounded-2xl bg-[#FCFAF5] border border-[#192841]/15 overflow-hidden flex items-center justify-center text-[#6F7885] text-xs">
       <Layers className="w-6 h-6 mr-2 text-[#192841]" />
-      <span>{project.title} Interactive Preview</span>
+      <span>{project.title} Preview</span>
     </div>
   );
 };
