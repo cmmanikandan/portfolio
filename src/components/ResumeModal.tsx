@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, Download, FileText, CheckCircle2, GraduationCap, Code, ExternalLink, Award, Sparkles, BookOpen } from "lucide-react";
 import { siteConfig } from "../config/siteConfig";
 
@@ -18,6 +19,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
     if (isOpen) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "auto";
     }
 
     return () => {
@@ -39,47 +42,58 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
     document.body.removeChild(link);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-[#192841]/60 backdrop-blur-sm animate-in fade-in duration-200">
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2.5 sm:p-4 md:p-6 overflow-y-auto bg-[#192841]/80 backdrop-blur-sm animate-in fade-in duration-200">
       
       {/* Background click listener */}
       <div className="fixed inset-0" onClick={onClose} />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-[#FFFEFB] border border-[#192841]/20 shadow-2xl z-10 animate-in zoom-in-95 duration-200 overflow-hidden">
+      <div className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] my-auto flex flex-col rounded-3xl bg-[#FFFEFB] border border-[#192841]/20 shadow-2xl z-10 animate-in zoom-in-95 duration-200 overflow-hidden">
         
         {/* Sticky Header */}
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 bg-[#FFFEFB]/95 backdrop-blur-md border-b border-[#192841]/10 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-[#F7E7CE] text-[#192841]">
-              <FileText className="w-5 h-5" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-6 py-3.5 sm:py-4 bg-[#FFFEFB]/95 backdrop-blur-md border-b border-[#192841]/10 shrink-0">
+          <div className="flex items-center justify-between sm:justify-start gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="p-2 rounded-xl bg-[#F7E7CE] text-[#192841] shrink-0">
+                <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div>
+                <h3 className="text-[15px] sm:text-base font-bold text-[#192841] leading-tight">
+                  Official Resume
+                </h3>
+                <p className="text-[11px] sm:text-xs font-medium text-[#6F7885]">
+                  {siteConfig.name} • B.Tech IT (MKCE)
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-base font-bold text-[#192841]">
-                Official Resume
-              </h3>
-              <p className="text-xs font-medium text-[#6F7885]">
-                {siteConfig.name} • B.Tech IT (MKCE)
-              </p>
-            </div>
+
+            {/* Mobile close button on top right */}
+            <button
+              onClick={onClose}
+              className="sm:hidden p-2 rounded-full text-[#46546A] hover:text-[#192841] hover:bg-[#F5F1E8] transition-colors cursor-pointer"
+              aria-label="Close Resume Modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between sm:justify-end gap-2">
             {/* View Mode Toggle */}
-            <div className="hidden sm:flex items-center bg-[#F5F1E8] p-1 rounded-xl border border-[#192841]/10 text-xs font-semibold mr-1">
+            <div className="flex items-center bg-[#F5F1E8] p-0.5 sm:p-1 rounded-xl border border-[#192841]/10 text-[11px] sm:text-xs font-semibold">
               <button
                 onClick={() => setViewMode("document")}
-                className={`px-3 py-1 rounded-lg transition-all ${
+                className={`px-2.5 sm:px-3 py-1 rounded-lg transition-all cursor-pointer ${
                   viewMode === "document"
                     ? "bg-[#192841] text-white shadow-xs"
                     : "text-[#46546A] hover:text-[#192841]"
                 }`}
               >
-                Structured View
+                Structured
               </button>
               <button
                 onClick={() => setViewMode("pdf")}
-                className={`px-3 py-1 rounded-lg transition-all ${
+                className={`px-2.5 sm:px-3 py-1 rounded-lg transition-all cursor-pointer ${
                   viewMode === "pdf"
                     ? "bg-[#192841] text-white shadow-xs"
                     : "text-[#46546A] hover:text-[#192841]"
@@ -89,263 +103,276 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </button>
             </div>
 
-            <a
-              href={siteConfig.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-9 px-3 rounded-xl text-xs font-semibold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center gap-1.5 transition-all shadow-2xs"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Open in New Tab</span>
-            </a>
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <a
+                href={siteConfig.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-8 sm:h-9 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-semibold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center gap-1 sm:gap-1.5 transition-all shadow-2xs"
+              >
+                <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span className="hidden md:inline">Open in Tab</span>
+              </a>
 
-            <button
-              onClick={handleDownload}
-              className="h-9 px-4 rounded-xl text-xs font-semibold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center gap-1.5 transition-all shadow-2xs"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download PDF</span>
-            </button>
+              <button
+                onClick={handleDownload}
+                className="h-8 sm:h-9 px-3 sm:px-4 rounded-xl text-[11px] sm:text-xs font-semibold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center gap-1 sm:gap-1.5 transition-all shadow-2xs cursor-pointer"
+              >
+                <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span>Download</span>
+              </button>
 
-            <button
-              onClick={onClose}
-              className="p-2 rounded-full text-[#46546A] hover:text-[#192841] hover:bg-[#F5F1E8] transition-colors ml-1"
-              aria-label="Close Resume Modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
+              <button
+                onClick={onClose}
+                className="hidden sm:inline-flex p-2 rounded-full text-[#46546A] hover:text-[#192841] hover:bg-[#F5F1E8] transition-colors ml-1 cursor-pointer"
+                aria-label="Close Resume Modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 text-[#192841]">
-          
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-8 bg-[#FCFAF5]/50">
           {viewMode === "pdf" ? (
-            <div className="w-full h-[600px] rounded-2xl overflow-hidden border border-[#192841]/15 shadow-inner bg-white">
+            <div className="w-full h-[65vh] sm:h-[70vh] rounded-2xl overflow-hidden border border-[#192841]/15 bg-white shadow-inner">
               <iframe
-                src={`${siteConfig.resumeUrl}#toolbar=0`}
-                title="Manikandan Prabhu Official Resume PDF"
-                className="w-full h-full border-0"
+                src={`${siteConfig.resumeUrl}#toolbar=1&navpanes=0&scrollbar=1`}
+                title="Manikandan Prabhu C. Resume PDF"
+                className="w-full h-full border-none"
               />
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-8 max-w-3xl mx-auto">
               
-              {/* Header Identity Block (Exact from PDF) */}
-              <div className="pb-5 border-b border-[#192841]/10 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[#192841] tracking-tight">
-                    Manikandan prabhu C
-                  </h2>
-                  <p className="text-sm font-semibold text-[#192841]/85">
-                    Information Technology Undergraduate • Java & Python Developer
+              {/* Header Info */}
+              <div className="p-6 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-sm space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#192841]/10 pb-5">
+                  <div>
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#192841]">
+                      Manikandan Prabhu C.
+                    </h2>
+                    <p className="text-base font-semibold text-[#192841] mt-0.5">
+                      B.Tech Information Technology Student
+                    </p>
+                    <p className="text-xs text-[#6F7885] mt-1">
+                      M. Kumarasamy College of Engineering, Karur • TN, India
+                    </p>
+                  </div>
+
+                  <div className="space-y-1 text-xs text-[#46546A] sm:text-right font-mono">
+                    <div>
+                      <strong className="text-[#192841] font-sans">Email:</strong> manikandanprabhu37@gmail.com
+                    </div>
+                    <div>
+                      <strong className="text-[#192841] font-sans">GitHub:</strong> github.com/cmmanikandan
+                    </div>
+                    <div>
+                      <strong className="text-[#192841] font-sans">LinkedIn:</strong> Manikandan Prabhu C.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#6F7885]">
+                    PROFESSIONAL SUMMARY
+                  </span>
+                  <p className="text-[14.5px] text-[#46546A] leading-relaxed">
+                    Motivated Information Technology undergraduate with solid foundations in Java, Python, and Object-Oriented Programming. Experienced in building full-stack web platforms and backend services with a disciplined focus on database modeling, RESTful integrations, and production readiness.
                   </p>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#6F7885] pt-1">
-                    <span>📧 {siteConfig.email}</span>
-                    <span>📞 +91 7540006268</span>
-                    <a
-                      href={siteConfig.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#192841] font-semibold underline hover:text-[#233758]"
-                    >
-                      github.com/cmmanikandan
-                    </a>
-                  </div>
                 </div>
               </div>
 
-              {/* 1. CAREER OBJECTIVE */}
-              <div className="space-y-2">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#192841]" />
-                  <span>Career Objective</span>
-                </h4>
-                <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/10 text-xs sm:text-[13.5px] text-[#46546A] leading-relaxed font-normal">
-                  To join a reputed organization that offers career growth and job satisfaction, while allowing me to contribute through continuous learning and add value to the organization. I seek opportunities to enhance my skills and knowledge, driving success for both myself and the company.
-                </div>
-              </div>
-
-              {/* 2. EDUCATION (Exact from PDF) */}
-              <div className="space-y-2.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4 text-[#192841]" />
+              {/* 1. Education */}
+              <div className="p-6 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-sm space-y-4">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#192841] border-b border-[#192841]/10 pb-3">
+                  <GraduationCap className="w-4 h-4" />
                   <span>Education</span>
-                </h4>
-                <div className="space-y-2.5">
-                  
-                  {/* College */}
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1">
-                    <div className="flex justify-between items-start text-xs sm:text-sm font-bold text-[#192841]">
-                      <span>Bachelor Of Technology (Information and Technology)</span>
-                      <span className="text-xs font-semibold text-[#6F7885] shrink-0 ml-2">2024 – 2028</span>
-                    </div>
-                    <p className="text-xs text-[#46546A] font-medium">
-                      M. Kumarasamy College Of Engineering, Karur
-                    </p>
-                    <p className="text-xs font-semibold text-[#192841] pt-0.5">
-                      CGPA: 7.5 <span className="font-normal text-[#6F7885]">(till 2nd sem)</span>
-                    </p>
-                  </div>
+                </div>
 
-                  {/* 12th */}
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1">
-                    <div className="flex justify-between items-start text-xs sm:text-sm font-bold text-[#192841]">
-                      <span>Higher Secondary Certificate (HSC)</span>
-                      <span className="text-xs font-semibold text-[#6F7885] shrink-0 ml-2">2023 – 2024</span>
+                <div className="space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-4">
+                    <div>
+                      <h4 className="text-base font-bold text-[#192841]">
+                        B.Tech in Information Technology
+                      </h4>
+                      <p className="text-xs font-medium text-[#46546A]">
+                        M. Kumarasamy College of Engineering, Karur
+                      </p>
                     </div>
-                    <p className="text-xs text-[#46546A] font-medium">
-                      Akshaya Academy Matric Higher Secondary School
-                    </p>
-                    <p className="text-xs font-semibold text-[#192841] pt-0.5">
-                      Percentage: 78.83%
-                    </p>
-                  </div>
-
-                  {/* 10th */}
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1">
-                    <div className="flex justify-between items-start text-xs sm:text-sm font-bold text-[#192841]">
-                      <span>Secondary School Leaving Certificate (SSLC)</span>
-                      <span className="text-xs font-semibold text-[#6F7885] shrink-0 ml-2">2021 – 2022</span>
+                    <div className="text-left sm:text-right">
+                      <span className="text-xs font-mono font-semibold text-[#192841]">
+                        2024 – 2028 (Expected)
+                      </span>
+                      <span className="block text-[11px] font-bold text-[#192841] bg-[#F7E7CE] px-2 py-0.5 rounded mt-0.5 sm:inline-block sm:ml-2">
+                        CGPA: 7.5 / 10
+                      </span>
                     </div>
-                    <p className="text-xs text-[#46546A] font-medium">
-                      Akshaya Academy Matric Higher Secondary School
-                    </p>
-                    <p className="text-xs font-semibold text-[#192841] pt-0.5">
-                      Percentage: 72%
-                    </p>
                   </div>
-
                 </div>
               </div>
 
-              {/* 3. TECHNICAL SKILLS & AREA OF INTEREST (Exact from PDF) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                    <Code className="w-4 h-4 text-[#192841]" />
-                    <span>Technical Skills</span>
-                  </h4>
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-2 text-xs">
-                    <div className="font-semibold text-[#192841]">Languages:</div>
-                    <ul className="space-y-1 text-[#46546A] pl-4 list-disc font-medium">
-                      <li>Python (Intermediate)</li>
-                      <li>Java (Beginner)</li>
-                      <li>Web Development (HTML, CSS, JS)</li>
-                    </ul>
-                  </div>
+              {/* 2. Technical Skills */}
+              <div className="p-6 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-sm space-y-4">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#192841] border-b border-[#192841]/10 pb-3">
+                  <Code className="w-4 h-4" />
+                  <span>Technical Skills</span>
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-[#192841]" />
-                    <span>Area of Interest</span>
-                  </h4>
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-2 text-xs">
-                    <div className="font-semibold text-[#192841]">Focus Fields:</div>
-                    <ul className="space-y-1 text-[#46546A] pl-4 list-disc font-medium">
-                      <li>Computer Networks</li>
-                      <li>UI/UX Design</li>
-                    </ul>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* 4. PROJECT DETAILS (Exact from PDF) */}
-              <div className="space-y-2.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#192841]" />
-                  <span>Project Details</span>
-                </h4>
-                <div className="space-y-3 text-xs sm:text-sm">
-                  
-                  {/* Project 1 */}
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1.5">
-                    <span className="font-bold text-[#192841]">
-                      Employee Attendance Tracker:
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3 rounded-2xl bg-[#F5F1E8] space-y-1">
+                    <span className="font-bold text-[#192841] block text-[11px] uppercase tracking-wider">
+                      Programming Languages
                     </span>
-                    <p className="text-[#46546A] leading-relaxed text-xs sm:text-[13px] font-normal">
-                      Developed an Employee Attendance Tracker using Python to automate employee check-in and check-out processes. Integrated database support for storing attendance records and generating daily and monthly reports. Improved efficiency by minimizing manual entry errors and ensuring accurate attendance tracking.
+                    <p className="text-[#46546A] font-medium">
+                      Java, Python, C, JavaScript (ES6+)
                     </p>
                   </div>
 
-                  {/* Project 2 */}
-                  <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1.5">
-                    <span className="font-bold text-[#192841]">
-                      HelpDesk Management System:
+                  <div className="p-3 rounded-2xl bg-[#F5F1E8] space-y-1">
+                    <span className="font-bold text-[#192841] block text-[11px] uppercase tracking-wider">
+                      Frameworks & Backend
                     </span>
-                    <p className="text-[#46546A] leading-relaxed text-xs sm:text-[13px] font-normal">
-                      Developed a HelpDesk Management System using Java, HTML, CSS, and MySQL to streamline support ticket handling. Implemented separate dashboards for admin, staff, and users to manage queries efficiently. Enhanced workflow with features like ticket tracking, status updates, and automated notifications.
+                    <p className="text-[#46546A] font-medium">
+                      Spring Boot, REST APIs, React, HTML5, CSS3
                     </p>
                   </div>
 
-                </div>
-              </div>
+                  <div className="p-3 rounded-2xl bg-[#F5F1E8] space-y-1">
+                    <span className="font-bold text-[#192841] block text-[11px] uppercase tracking-wider">
+                      Databases & Cloud
+                    </span>
+                    <p className="text-[#46546A] font-medium">
+                      MySQL, PostgreSQL, Supabase, Firebase
+                    </p>
+                  </div>
 
-              {/* 5. COURSES & CERTIFICATIONS (Exact from PDF) */}
-              <div className="space-y-2.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                  <Award className="w-4 h-4 text-[#192841]" />
-                  <span>Courses & Certifications</span>
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-                  <div className="p-3 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 font-medium text-[#192841]">
-                    • NPTEL Certification in “Introduction to Internet of Things” – 2024
-                  </div>
-                  <div className="p-3 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 font-medium text-[#192841]">
-                    • Coursera Course in “Python for Data Science” – 2024
-                  </div>
-                  <div className="p-3 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 font-medium text-[#192841]">
-                    • Great Learning Course in “Machine Learning Fundamentals” – 2025
-                  </div>
-                  <div className="p-3 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 font-medium text-[#192841]">
-                    • Udemy Course in “Web Development using HTML, CSS & JavaScript” – 2025
+                  <div className="p-3 rounded-2xl bg-[#F5F1E8] space-y-1">
+                    <span className="font-bold text-[#192841] block text-[11px] uppercase tracking-wider">
+                      Tools & Platforms
+                    </span>
+                    <p className="text-[#46546A] font-medium">
+                      Git, GitHub, VS Code, Vercel, Vite
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* 6. ACHIEVEMENTS & PARTICIPATION (Exact from PDF) */}
-              <div className="space-y-2.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#192841] flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#192841]" />
-                  <span>Achievements & Participation</span>
-                </h4>
-                <div className="p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1.5 text-xs text-[#46546A] font-medium">
-                  <div>• Secured the first rank in Mathematics at the school level, demonstrating strong analytical and problem-solving skills.</div>
-                  <div>• Attended a Machine Learning Workshop at IIT Chennai – 2024.</div>
-                  <div>• Participated in a State-Level Hackathon conducted at SRM College – 2025.</div>
-                  <div>• Participated in district level marathon – 2024.</div>
+              {/* 3. Core Placement Projects */}
+              <div className="p-6 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-sm space-y-4">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#192841] border-b border-[#192841]/10 pb-3">
+                  <BookOpen className="w-4 h-4" />
+                  <span>Key Software Projects</span>
+                </div>
+
+                <div className="space-y-4 text-xs sm:text-sm">
+                  <div className="p-4 rounded-2xl bg-[#F5F1E8]/70 border border-[#192841]/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-[#192841] text-sm sm:text-base">
+                        Qubink — Smart Campus Printing Marketplace
+                      </h4>
+                      <span className="text-[11px] font-mono bg-white px-2 py-0.5 rounded border border-[#192841]/15 font-semibold text-[#192841]">
+                        Full Stack
+                      </span>
+                    </div>
+                    <p className="text-[#46546A] text-xs leading-relaxed">
+                      End-to-end printing service marketplace for college campuses featuring multi-format file uploads, dynamic pricing calculation, FIFO vendor queue, and QR code pickup handoff.
+                    </p>
+                    <div className="text-[11px] text-[#6F7885] font-medium pt-1">
+                      <strong>Technologies:</strong> React, TypeScript, Supabase, Firebase, Cloudinary, Razorpay
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-[#F5F1E8]/70 border border-[#192841]/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-[#192841] text-sm sm:text-base">
+                        FINOVA — Personal Finance & Expense Tracker
+                      </h4>
+                      <span className="text-[11px] font-mono bg-white px-2 py-0.5 rounded border border-[#192841]/15 font-semibold text-[#192841]">
+                        PWA / Finance
+                      </span>
+                    </div>
+                    <p className="text-[#46546A] text-xs leading-relaxed">
+                      Gamified personal budget tracker with category breakdown analytics, velocity spend monitoring, streak badges, and offline PWA capability.
+                    </p>
+                    <div className="text-[11px] text-[#6F7885] font-medium pt-1">
+                      <strong>Technologies:</strong> React, TypeScript, Vite, Tailwind CSS, Supabase, Service Workers
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-[#F5F1E8]/70 border border-[#192841]/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-[#192841] text-sm sm:text-base">
+                        Employee Attendance Tracker & HelpDesk System
+                      </h4>
+                      <span className="text-[11px] font-mono bg-white px-2 py-0.5 rounded border border-[#192841]/15 font-semibold text-[#192841]">
+                        Java & Python
+                      </span>
+                    </div>
+                    <p className="text-[#46546A] text-xs leading-relaxed">
+                      Desktop and backend service applications for automated attendance recording, leave workflows, and ticket-based IT service resolution with MySQL database backend.
+                    </p>
+                    <div className="text-[11px] text-[#6F7885] font-medium pt-1">
+                      <strong>Technologies:</strong> Java, Python, MySQL, SQLite, JDBC, Tkinter
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* 7. SOFT SKILLS & INTERESTS */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div className="p-3.5 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1">
-                  <span className="font-bold text-[#192841]">Soft Skills:</span>
-                  <p className="text-[#46546A] font-medium">Teamwork • Self Motivated • Time Management</p>
+              {/* 4. Certifications & Academic Honors */}
+              <div className="p-6 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-sm space-y-4">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#192841] border-b border-[#192841]/10 pb-3">
+                  <Award className="w-4 h-4" />
+                  <span>Certifications & Online Learning</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-[#F5F1E8] border border-[#192841]/12 space-y-1">
-                  <span className="font-bold text-[#192841]">Interests & Activities:</span>
-                  <p className="text-[#46546A] font-medium">Playing Chess • Web Development and UI Design</p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  {[
+                    { name: "Programming in Java", org: "NPTEL / SWAYAM" },
+                    { name: "Python for Everybody", org: "Coursera" },
+                    { name: "Java Programming Fundamentals", org: "Great Learning" },
+                    { name: "SQL & Relational Database Design", org: "Udemy" }
+                  ].map((cert, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-2xl bg-[#F5F1E8] flex items-start gap-2.5"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-[#192841] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-bold text-[#192841] block">
+                          {cert.name}
+                        </span>
+                        <span className="text-[11px] text-[#6F7885]">
+                          {cert.org}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
             </div>
           )}
-
         </div>
 
-        {/* Modal Footer */}
-        <div className="px-5 sm:px-6 py-3.5 bg-[#F5F1E8] border-t border-[#192841]/10 flex items-center justify-between shrink-0">
-          <span className="text-xs font-semibold text-[#6F7885]">
-            Verified Official Resume • Manikandan Prabhu C.
-          </span>
-          <div className="flex gap-2">
+        {/* Sticky Footer Action */}
+        <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 bg-[#FFFEFB] border-t border-[#192841]/10 shrink-0 text-xs">
+          <div className="flex items-center gap-1.5 text-[#6F7885] font-medium">
+            <Sparkles className="w-3.5 h-3.5 text-[#192841]" />
+            <span>Placement Profile • Verified</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-xl text-xs font-semibold border border-[#192841]/20 text-[#192841] hover:bg-[#F5F1E8] transition-colors cursor-pointer"
+            >
+              Close
+            </button>
             <button
               onClick={handleDownload}
-              className="h-9 px-4 rounded-xl text-xs font-semibold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center gap-1.5 transition-all shadow-2xs"
+              className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#192841] text-white hover:bg-[#233758] transition-colors shadow-2xs inline-flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download PDF</span>
@@ -356,4 +383,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       </div>
     </div>
   );
+
+  return typeof document !== "undefined"
+    ? createPortal(modalContent, document.body)
+    : null;
 };
