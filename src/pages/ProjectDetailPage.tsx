@@ -14,6 +14,11 @@ export const ProjectDetailPage: React.FC = () => {
   }
 
   const project = featuredProjects[projectIndex];
+  
+  // Previous and Next project navigation
+  const prevProjectIndex = (projectIndex - 1 + featuredProjects.length) % featuredProjects.length;
+  const prevProject = featuredProjects[prevProjectIndex];
+  
   const nextProjectIndex = (projectIndex + 1) % featuredProjects.length;
   const nextProject = featuredProjects[nextProjectIndex];
 
@@ -21,7 +26,7 @@ export const ProjectDetailPage: React.FC = () => {
     <div className="py-10 sm:py-16 md:py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
       
       {/* Top Breadcrumb / Back Link */}
-      <div>
+      <div className="flex items-center justify-between">
         <Link
           to="/projects"
           className="inline-flex items-center gap-2 text-xs sm:text-[14px] font-semibold text-[#192841] hover:text-[#233758] transition-colors link-hover group"
@@ -29,6 +34,26 @@ export const ProjectDetailPage: React.FC = () => {
           <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
           <span>Back to All Projects</span>
         </Link>
+
+        {/* Quick Prev / Next header arrows */}
+        <div className="flex items-center gap-2">
+          <Link
+            to={`/projects/${prevProject.id}`}
+            className="p-2 rounded-xl bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] hover:-translate-y-0.5 transition-all shadow-2xs inline-flex items-center gap-1 text-xs font-semibold"
+            title={`Previous: ${prevProject.title}`}
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Prev</span>
+          </Link>
+          <Link
+            to={`/projects/${nextProject.id}`}
+            className="p-2 rounded-xl bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] hover:-translate-y-0.5 transition-all shadow-2xs inline-flex items-center gap-1 text-xs font-semibold"
+            title={`Next: ${nextProject.title}`}
+          >
+            <span className="hidden sm:inline">Next</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
       </div>
 
       {/* Case Study Hero Header */}
@@ -240,18 +265,55 @@ export const ProjectDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Next Project Footer Card */}
-      <div className="pt-6 border-t border-[#192841]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#6F7885]">
-          NEXT CASE STUDY
-        </span>
-        <Link
-          to={`/projects/${nextProject.id}`}
-          className="inline-flex items-center gap-2 text-sm font-bold text-[#192841] hover:text-[#233758] link-hover group"
-        >
-          <span>{nextProject.number} — {nextProject.title}</span>
-          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-        </Link>
+      {/* Previous & Next Case Studies Dual Navigation Cards */}
+      <div className="pt-8 border-t border-[#192841]/10 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          
+          {/* Previous Case Study Card */}
+          <Link
+            to={`/projects/${prevProject.id}`}
+            className="p-5 sm:p-6 rounded-2xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] hover:shadow-[0_8px_24px_rgba(25,40,65,0.08)] hover:border-[#192841]/35 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between group"
+          >
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#6F7885] group-hover:text-[#192841] transition-colors">
+              <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1 text-[#192841]" />
+              <span>Previous Case Study</span>
+            </div>
+            <div className="mt-3">
+              <span className="text-xs font-mono font-bold text-[#192841] block">
+                {prevProject.number}
+              </span>
+              <h4 className="text-lg sm:text-xl font-bold text-[#192841] tracking-tight group-hover:text-[#233758] transition-colors mt-0.5">
+                {prevProject.title}
+              </h4>
+              <p className="text-xs text-[#6F7885] font-medium truncate mt-1">
+                {prevProject.subtitle}
+              </p>
+            </div>
+          </Link>
+
+          {/* Next Case Study Card */}
+          <Link
+            to={`/projects/${nextProject.id}`}
+            className="p-5 sm:p-6 rounded-2xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] hover:shadow-[0_8px_24px_rgba(25,40,65,0.08)] hover:border-[#192841]/35 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between items-start sm:items-end text-left sm:text-right group"
+          >
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#6F7885] group-hover:text-[#192841] transition-colors">
+              <span>Next Case Study</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 text-[#192841]" />
+            </div>
+            <div className="mt-3">
+              <span className="text-xs font-mono font-bold text-[#192841] block">
+                {nextProject.number}
+              </span>
+              <h4 className="text-lg sm:text-xl font-bold text-[#192841] tracking-tight group-hover:text-[#233758] transition-colors mt-0.5">
+                {nextProject.title}
+              </h4>
+              <p className="text-xs text-[#6F7885] font-medium truncate mt-1">
+                {nextProject.subtitle}
+              </p>
+            </div>
+          </Link>
+
+        </div>
       </div>
 
     </div>
