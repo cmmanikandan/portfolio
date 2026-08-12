@@ -4,7 +4,7 @@ import { siteConfig } from "../config/siteConfig";
 import { featuredProjects } from "../data/projectsData";
 import { AnimatedRoleText } from "../components/AnimatedRoleText";
 import { ProjectMockupPreview } from "../components/ProjectMockupPreview";
-import { Code2, Download, Terminal, Database, Server, ArrowRight, Mail } from "lucide-react";
+import { Download, ArrowRight, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon, LeetCodeIcon, HackerRankIcon } from "../components/BrandIcons";
 
 interface HomePageProps {
@@ -20,137 +20,61 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
       {/* 1. HERO SECTION */}
       <section className="pt-8 pb-12 sm:pt-14 sm:pb-16 md:pt-18 md:pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <div className="max-w-4xl space-y-6">
             
-            {/* Left Hero Column */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              {/* Personal Brand Typography */}
-              <div className="space-y-2">
-                <div className="text-[12px] font-bold tracking-[0.08em] text-[#192841] uppercase">
-                  HELLO, I'M
-                </div>
-
-                {/* 1. Big Personal Name Headline */}
-                <h1 className="text-[40px] sm:text-[54px] md:text-[64px] lg:text-[74px] font-bold tracking-tight text-[#192841] leading-none">
-                  MANIKANDAN PRABHU
-                </h1>
-
-                {/* 2. Developer Terminal Animated Role */}
-                <div className="pt-1.5 pb-1">
-                  <AnimatedRoleText />
-                </div>
-
-                {/* 3. Headline Statement - Positioned UNDER the animated software developer role */}
-                <h2 className="text-[20px] sm:text-[26px] md:text-[32px] font-bold text-[#192841] leading-tight pt-1">
-                  I turn ideas into practical software.
-                </h2>
+            {/* Personal Brand Typography */}
+            <div className="space-y-2">
+              <div className="text-[12px] font-bold tracking-[0.08em] text-[#192841] uppercase">
+                HELLO, I'M
               </div>
 
-              {/* Placement Description: 15–17px, line-height 1.65, #46546A */}
-              <p className="text-[15px] sm:text-[16.5px] text-[#46546A] font-normal leading-[1.65] max-w-2xl">
-                I'm a B.Tech Information Technology student currently entering my 3rd year at <strong className="text-[#192841] font-semibold">M. Kumarasamy College of Engineering (MKCE), Karur</strong>, focused on Java, Spring Boot, SQL and full stack development. I enjoy turning real-world ideas into practical software and building projects that solve everyday problems.
-              </p>
+              {/* 1. Big Personal Name Headline */}
+              <h1 className="text-[40px] sm:text-[54px] md:text-[64px] lg:text-[76px] font-bold tracking-tight text-[#192841] leading-none">
+                MANIKANDAN PRABHU
+              </h1>
 
-              {/* Actions: Full-width stack on mobile */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                <Link
-                  to="/projects"
-                  className="h-12 px-6 rounded-xl bg-[#192841] text-white hover:bg-[#233758] font-bold text-[15px] inline-flex items-center justify-center gap-2.5 transition-all duration-200 hover:-translate-y-0.5 shadow-sm group w-full sm:w-auto text-center"
-                >
-                  <span>View Projects</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-
-                <button
-                  onClick={onOpenResumeModal}
-                  className="h-12 px-6 rounded-xl border border-[#192841]/25 bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto text-center"
-                >
-                  <Download className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
-                  <span>Download Resume</span>
-                </button>
-
-                <Link
-                  to="/contact"
-                  className="h-12 px-4 inline-flex items-center justify-center gap-1.5 text-[14px] font-bold text-[#192841] hover:text-[#233758] transition-colors link-hover group w-full sm:w-auto text-center"
-                >
-                  <span>Connect With Me</span>
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-                </Link>
+              {/* 2. Developer Terminal Animated Role */}
+              <div className="pt-1.5 pb-1">
+                <AnimatedRoleText />
               </div>
+
+              {/* 3. Headline Statement */}
+              <h2 className="text-[20px] sm:text-[26px] md:text-[34px] font-bold text-[#192841] leading-tight pt-1">
+                I turn ideas into practical software.
+              </h2>
             </div>
 
-            {/* Right Hero Column: Developer Card */}
-            <div className="lg:col-span-5 w-full">
-              <div className="relative mx-auto max-w-md lg:max-w-none w-full">
-                <div className="relative p-5 sm:p-7 rounded-2xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] space-y-5 hover:shadow-[0_8px_24px_rgba(25,40,65,0.08)] hover:border-[#192841]/30 transition-all duration-200">
-                  
-                  <div className="flex items-center justify-between pb-4 border-b border-[#192841]/10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#F5F1E8] border border-[#192841]/15 flex items-center justify-center text-[#192841] shrink-0">
-                        <Code2 className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-[16px] font-bold text-[#192841] tracking-wide">
-                          MANIKANDAN PRABHU C.
-                        </h3>
-                        <p className="text-xs text-[#6F7885] font-medium">
-                          Java Full Stack Developer
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex space-x-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#192841]/20" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#F7E7CE] border border-[#192841]/20" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-600/80" />
-                    </div>
-                  </div>
+            {/* Placement Description: 15–17px, line-height 1.65, #46546A */}
+            <p className="text-[15px] sm:text-[16.5px] text-[#46546A] font-normal leading-[1.65] max-w-3xl">
+              I'm a B.Tech Information Technology student currently entering my 3rd year at <strong className="text-[#192841] font-semibold">M. Kumarasamy College of Engineering (MKCE), Karur</strong>, focused on Java, Spring Boot, SQL and full stack development. I enjoy turning real-world ideas into practical software and building projects that solve everyday problems.
+            </p>
 
-                  <div className="space-y-2.5">
-                    <div className="text-[11px] font-bold tracking-[0.08em] text-[#192841] uppercase">
-                      PRIMARY STACK
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F5F1E8] text-[12.5px] font-medium text-[#192841] border border-[#192841]/15 hover:bg-[#F7E7CE] transition-colors">
-                        <Terminal className="w-3.5 h-3.5 text-[#192841]" />
-                        Java
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F5F1E8] text-[12.5px] font-medium text-[#192841] border border-[#192841]/15 hover:bg-[#F7E7CE] transition-colors">
-                        <Server className="w-3.5 h-3.5 text-[#192841]" />
-                        Spring Boot
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F5F1E8] text-[12.5px] font-medium text-[#192841] border border-[#192841]/15 hover:bg-[#F7E7CE] transition-colors">
-                        <Database className="w-3.5 h-3.5 text-[#192841]" />
-                        SQL
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F5F1E8] text-[12.5px] font-medium text-[#192841] border border-[#192841]/15 hover:bg-[#F7E7CE] transition-colors">
-                        <Code2 className="w-3.5 h-3.5 text-[#192841]" />
-                        Web & REST APIs
-                      </span>
-                    </div>
-                  </div>
+            {/* Actions: Full-width stack on mobile */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <Link
+                to="/projects"
+                className="h-12 px-6 rounded-xl bg-[#192841] text-white hover:bg-[#233758] font-bold text-[15px] inline-flex items-center justify-center gap-2.5 transition-all duration-200 hover:-translate-y-0.5 shadow-sm group w-full sm:w-auto text-center"
+              >
+                <span>View Projects</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
 
-                  <div className="p-3.5 sm:p-4 rounded-xl bg-[#F5F1E8] border border-[#192841]/10 font-mono text-xs text-[#192841] space-y-1.5 leading-relaxed overflow-x-auto">
-                    <div className="text-[#6F7885] font-normal">// Placement Target</div>
-                    <div><span className="text-[#192841] font-semibold">class</span> <span className="text-[#192841] font-bold">Candidate</span> &#123;</div>
-                    <div className="pl-3 sm:pl-4"><span className="text-[#6F7885]">String</span> target = <span className="text-[#192841] font-medium">"Java Full Stack"</span>;</div>
-                    <div className="pl-3 sm:pl-4"><span className="text-[#6F7885]">String</span> motto = <span className="text-[#192841] italic font-medium">"Learn. Build. Solve."</span>;</div>
-                    <div>&#125;</div>
-                  </div>
+              <button
+                onClick={onOpenResumeModal}
+                className="h-12 px-6 rounded-xl border border-[#192841]/25 bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto text-center"
+              >
+                <Download className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
+                <span>Download Resume</span>
+              </button>
 
-                  <div className="pt-1 flex flex-col space-y-1 text-xs text-[#46546A]">
-                    <div className="flex items-center justify-between">
-                      <span>B.Tech Information Technology</span>
-                      <span className="font-semibold text-[#192841]">MKCE, Karur</span>
-                    </div>
-                    <div className="text-[12px] text-[#192841] font-medium italic">
-                      Currently entering 3rd Year
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Link
+                to="/contact"
+                className="h-12 px-4 inline-flex items-center justify-center gap-1.5 text-[14px] font-bold text-[#192841] hover:text-[#233758] transition-colors link-hover group w-full sm:w-auto text-center"
+              >
+                <span>Connect With Me</span>
+                <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              </Link>
             </div>
-
           </div>
         </div>
       </section>
@@ -327,7 +251,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
         </div>
       </section>
 
-      {/* 6. LET'S CONNECT (5 Social Links & Direct Mail) */}
+      {/* 6. LET'S CONNECT */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-6 sm:p-8 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:border-[#192841]/30 transition-all duration-200">
           <div>
