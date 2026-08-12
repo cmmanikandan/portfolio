@@ -77,13 +77,13 @@ export default async function handler(req: any, res: any) {
       timeStyle: "medium"
     });
 
-    // 3. Send Email via Resend
+    // 3. Send Email via Resend with verified domain cmmanikandan.in
     const { data, error } = await resend.emails.send({
       from: fromAddress,
       to: [toAddress],
       replyTo: cleanEmail,
-      subject: `[Portfolio Inquiry] ${cleanSubject}`,
-      text: `New message from ${cleanName} (${cleanEmail})\n\nSubject: ${cleanSubject}\nDate: ${submissionTime} IST\n\nMessage:\n${cleanMessage}`,
+      subject: `[cmmanikandan.in] ${cleanSubject}`,
+      text: `New message from ${cleanName} (${cleanEmail})\n\nSubject: ${cleanSubject}\nWebsite: https://cmmanikandan.in\nDate: ${submissionTime} IST\n\nMessage:\n${cleanMessage}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -107,7 +107,7 @@ export default async function handler(req: any, res: any) {
           <div class="container">
             <div class="header">
               <h1>New Message from Portfolio</h1>
-              <p>Received via cmmanikandan.vercel.app</p>
+              <p>Received via <a href="https://cmmanikandan.in" style="color: #F7E7CE; text-decoration: underline;">cmmanikandan.in</a></p>
             </div>
             <div class="content">
               <div class="field-group">
@@ -123,6 +123,10 @@ export default async function handler(req: any, res: any) {
                 <div class="field-value">${cleanSubject}</div>
               </div>
               <div class="field-group">
+                <div class="field-label">Website Domain</div>
+                <div class="field-value"><a href="https://cmmanikandan.in" style="color: #192841;">cmmanikandan.in</a></div>
+              </div>
+              <div class="field-group">
                 <div class="field-label">Received At</div>
                 <div class="field-value" style="font-size: 13px; font-weight: normal; color: #6F7885;">${submissionTime} (IST)</div>
               </div>
@@ -133,6 +137,8 @@ export default async function handler(req: any, res: any) {
             </div>
             <div class="footer">
               Hit "Reply" in your email client to directly reply to ${cleanName} (${cleanEmail}).
+              <br />
+              Delivered via <strong>hello@cmmanikandan.in</strong> for <a href="https://cmmanikandan.in" style="color: #192841;">cmmanikandan.in</a>
             </div>
           </div>
         </body>

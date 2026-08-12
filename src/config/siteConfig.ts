@@ -3,6 +3,8 @@ export interface SiteConfig {
   shortName: string;
   title: string;
   secondaryTitle: string;
+  domain: string;
+  siteUrl: string;
   college: string;
   collegeShort: string;
   degree: string;
@@ -30,6 +32,8 @@ export const siteConfig: SiteConfig = {
   shortName: "Manikandan Prabhu",
   title: "Java Full Stack Developer",
   secondaryTitle: "Java Full Stack Developer focused on building clean, responsive and practical web applications.",
+  domain: "cmmanikandan.in",
+  siteUrl: "https://cmmanikandan.in",
   college: "M. Kumarasamy College of Engineering",
   collegeShort: "MKCE, Karur",
   degree: "B.Tech Information Technology",
