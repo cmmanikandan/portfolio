@@ -54,6 +54,20 @@
   background: rgba(25, 40, 65, 0.45);
 }
 
+/* 3D Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
 /* Subtle editorial underline & transition helpers */
 .link-hover {
   position: relative;
