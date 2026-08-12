@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
   // Track scroll position for subtle shadow and backdrop
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 15) {
+      if (window.scrollY > 10) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -50,22 +50,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
 
   return (
     <header
-      className={`sticky top-0 left-0 right-0 z-50 w-full max-w-full overflow-x-hidden transition-all duration-200 bg-[#FCFAF5]/95 backdrop-blur-md ${
+      className={`sticky top-0 left-0 right-0 z-50 w-full transition-all duration-200 bg-[#FCFAF5]/95 backdrop-blur-md ${
         isScrolled
-          ? "border-b border-[#192841]/12 shadow-[0_2px_14px_rgba(25,40,65,0.05)]"
-          : "border-b border-transparent"
+          ? "border-b border-[#192841]/12 shadow-[0_2px_14px_rgba(25,40,65,0.06)]"
+          : "border-b border-[#192841]/5"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8">
-        <div className="h-[64px] sm:h-[68px] md:h-[72px] flex items-center justify-between gap-2 sm:gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="h-[64px] sm:h-[68px] md:h-[72px] flex items-center justify-between gap-3 sm:gap-4">
           
           {/* LEFT: Official [MP Logo] + Manikandan Prabhu */}
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-2 sm:gap-3 select-none shrink transition-all duration-200 hover:opacity-90 active:scale-[0.98] group min-w-0"
+            className="flex items-center gap-2.5 sm:gap-3 select-none shrink-0 transition-all duration-200 hover:opacity-90 active:scale-[0.98] group"
           >
-            <div className="h-[34px] sm:h-[38px] md:h-[42px] w-[34px] sm:w-[38px] md:w-[42px] flex items-center justify-center shrink-0">
+            <div className="h-[36px] sm:h-[40px] md:h-[42px] w-[36px] sm:w-[40px] md:w-[42px] flex items-center justify-center shrink-0">
               <img
                 src={logoImg}
                 alt="MP Logo"
@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
             </div>
 
             <span
-              className="text-[16.5px] sm:text-[19px] md:text-[20px] tracking-tight leading-none text-[#192841] whitespace-nowrap font-bold truncate"
+              className="text-[17px] sm:text-[19px] md:text-[20px] tracking-tight leading-none text-[#192841] whitespace-nowrap font-bold"
               style={{
                 fontFamily: "'Plus Jakarta Sans', 'Manrope', 'Inter', sans-serif"
               }}
@@ -122,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
           <div className="flex md:hidden items-center shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-[40px] h-[40px] sm:w-[42px] sm:h-[42px] rounded-xl bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] transition-colors focus:outline-none flex items-center justify-center shadow-2xs active:scale-95"
+              className="w-[42px] h-[42px] rounded-xl bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] transition-colors focus:outline-none flex items-center justify-center shadow-2xs active:scale-95"
               aria-label={mobileMenuOpen ? "Close Menu" : "Open Navigation Menu"}
             >
               {mobileMenuOpen ? (
@@ -137,7 +137,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
 
       {/* Mobile Menu Backdrop & Full Clean Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[64px] sm:top-[68px] bottom-0 z-50 flex flex-col justify-start w-full max-w-full overflow-hidden">
+        <div className="md:hidden fixed inset-x-0 top-[64px] sm:top-[68px] bottom-0 z-50 flex flex-col justify-start">
           {/* Backdrop overlay (tap outside to close) */}
           <div
             className="fixed inset-0 top-[64px] sm:top-[68px] bg-[#192841]/30 backdrop-blur-xs transition-opacity"
@@ -145,8 +145,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
           />
 
           {/* Drawer Menu Panel */}
-          <div className="relative bg-[#FCFAF5] border-b border-[#192841]/15 shadow-2xl px-5 py-6 animate-in fade-in slide-in-from-top-2 duration-200 max-h-[calc(100vh-68px)] overflow-y-auto w-full max-w-full">
-            <div className="flex flex-col space-y-2 max-w-md mx-auto w-full">
+          <div className="relative bg-[#FCFAF5] border-b border-[#192841]/15 shadow-2xl px-5 py-6 animate-in fade-in slide-in-from-top-2 duration-200 max-h-[calc(100vh-68px)] overflow-y-auto">
+            <div className="flex flex-col space-y-2 max-w-md mx-auto">
               
               {/* 1. Navigation items */}
               {navItems.map((item) => {
@@ -183,7 +183,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
               </div>
 
               {/* 3. Compact Social Profiles Row */}
-              <div className="pt-4 border-t border-[#192841]/10 flex items-center justify-around w-full">
+              <div className="pt-4 border-t border-[#192841]/10 flex items-center justify-around">
                 <a
                   href={siteConfig.linkedinUrl}
                   target="_blank"
