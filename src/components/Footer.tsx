@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { siteConfig, navItems } from "../config/siteConfig";
 import { Heart } from "lucide-react";
 import { GithubIcon, LinkedinIcon, LeetCodeIcon, HackerRankIcon } from "./BrandIcons";
-import logoImg from "../assets/logo.png";
+import whiteLogo from "../assets/white.png";
 
 export const Footer: React.FC = () => {
   const socialProfiles = [
@@ -36,15 +36,18 @@ export const Footer: React.FC = () => {
         {/* Top Footer Row */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-8 border-b border-white/10">
           
-          {/* Left Brand Identity with official MP Logo */}
+          {/* Left Brand Identity with official White MP Logo for High Visibility on Dark Navy */}
           <Link
             to="/"
             className="flex items-center gap-3 select-none transition-all duration-200 hover:opacity-90 hover:translate-x-[1px]"
           >
             <img
-              src={logoImg}
-              alt="MP Logo"
-              className="h-[32px] sm:h-[36px] md:h-[38px] w-auto object-contain shrink-0"
+              src={whiteLogo}
+              alt="Manikandan Prabhu White Logo"
+              className="h-[34px] sm:h-[38px] md:h-[40px] w-auto object-contain shrink-0 drop-shadow-sm"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "/white.png";
+              }}
             />
             <div className="space-y-0.5">
               <span
