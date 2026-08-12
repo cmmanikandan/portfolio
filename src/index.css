@@ -1,0 +1,75 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', 'Manrope', 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #FCFAF5;
+    color: #192841;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    color: #192841;
+  }
+}
+
+/* Custom Text Selection - Midnight Blue Brand Highlight */
+::selection {
+  background-color: #192841;
+  color: #FCFAF5;
+}
+
+::-moz-selection {
+  background-color: #192841;
+  color: #FCFAF5;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FCFAF5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(25, 40, 65, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(25, 40, 65, 0.45);
+}
+
+/* Subtle editorial underline & transition helpers */
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1.5px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.2s ease-in-out;
+}
+
+.link-hover:hover::after {
+  width: 100%;
+}
