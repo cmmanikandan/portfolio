@@ -16,48 +16,48 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
   const topProjects = featuredProjects.slice(0, 3);
 
   return (
-    <div className="space-y-16 sm:space-y-24 md:space-y-28 pb-16 sm:pb-20">
+    <div className="space-y-14 sm:space-y-20 md:space-y-24 pb-14 sm:pb-18 max-w-full overflow-x-hidden">
       
       {/* 1. HERO SECTION WITH 3D TECH RADAR ORBIT */}
-      <section className="pt-6 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20">
+      <section className="pt-6 pb-10 sm:pt-10 sm:pb-14 md:pt-14 md:pb-18 max-w-full">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
             {/* Left Hero Column: Typography & CTAs */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-5 sm:space-y-6">
               
               {/* Personal Brand Typography */}
               <div className="space-y-2">
-                <div className="text-[12px] font-bold tracking-[0.08em] text-[#192841] uppercase">
+                <div className="text-[11px] sm:text-[12px] font-bold tracking-[0.08em] text-[#192841] uppercase">
                   HELLO, I'M
                 </div>
 
                 {/* 1. Big Personal Name Headline */}
-                <h1 className="text-[38px] sm:text-[52px] md:text-[62px] lg:text-[72px] font-bold tracking-tight text-[#192841] leading-none">
+                <h1 className="text-[32px] sm:text-[48px] md:text-[58px] lg:text-[70px] font-bold tracking-tight text-[#192841] leading-none break-words">
                   MANIKANDAN PRABHU
                 </h1>
 
                 {/* 2. Developer Terminal Animated Role */}
-                <div className="pt-1.5 pb-1">
+                <div className="pt-1 pb-0.5">
                   <AnimatedRoleText />
                 </div>
 
                 {/* 3. Headline Statement */}
-                <h2 className="text-[20px] sm:text-[26px] md:text-[32px] font-bold text-[#192841] leading-tight pt-1">
+                <h2 className="text-[18px] sm:text-[24px] md:text-[30px] font-bold text-[#192841] leading-tight pt-1">
                   I turn ideas into practical software.
                 </h2>
               </div>
 
               {/* Placement Description: 15–17px, line-height 1.65, #46546A */}
-              <p className="text-[15px] sm:text-[16.5px] text-[#46546A] font-normal leading-[1.65] max-w-2xl">
+              <p className="text-[14.5px] sm:text-[16px] text-[#46546A] font-normal leading-[1.65] max-w-2xl">
                 I'm a B.Tech Information Technology student currently entering my 3rd year at <strong className="text-[#192841] font-semibold">M. Kumarasamy College of Engineering (MKCE), Karur</strong>, focused on Java, Spring Boot, SQL and full stack development. I enjoy turning real-world ideas into practical software and building projects that solve everyday problems.
               </p>
 
               {/* Actions: Full-width stack on mobile */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 max-w-full">
                 <Link
                   to="/projects"
-                  className="h-12 px-6 rounded-xl bg-[#192841] text-white hover:bg-[#233758] font-bold text-[15px] inline-flex items-center justify-center gap-2.5 transition-all duration-200 hover:-translate-y-0.5 shadow-sm group w-full sm:w-auto text-center"
+                  className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl bg-[#192841] text-white hover:bg-[#233758] font-bold text-[14.5px] sm:text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-sm group w-full sm:w-auto text-center"
                 >
                   <span>View Projects</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -65,7 +65,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
                 <button
                   onClick={onOpenResumeModal}
-                  className="h-12 px-6 rounded-xl border border-[#192841]/25 bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto text-center"
+                  className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl border border-[#192841]/25 bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[14.5px] sm:text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto text-center"
                 >
                   <Download className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
                   <span>Download Resume</span>
@@ -73,7 +73,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
                 <Link
                   to="/contact"
-                  className="h-12 px-4 inline-flex items-center justify-center gap-1.5 text-[14px] font-bold text-[#192841] hover:text-[#233758] transition-colors link-hover group w-full sm:w-auto text-center"
+                  className="h-11 sm:h-12 px-3 inline-flex items-center justify-center gap-1.5 text-[13.5px] sm:text-[14px] font-bold text-[#192841] hover:text-[#233758] transition-colors link-hover group w-full sm:w-auto text-center"
                 >
                   <span>Connect With Me</span>
                   <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -82,7 +82,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
             </div>
 
             {/* Right Hero Column: Interactive 3D Tech Orbit Element */}
-            <div className="lg:col-span-5 w-full flex items-center justify-center pt-4 lg:pt-0">
+            <div className="lg:col-span-5 w-full flex items-center justify-center pt-2 lg:pt-0 max-w-full overflow-hidden">
               <TechRadarOrbit />
             </div>
 
@@ -92,7 +92,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
       {/* 2. QUICK SNAPSHOT METRICS */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
           {[
             { label: "ACADEMIC", primary: "B.Tech IT", note: "(3rd Year)" },
             { label: "CORE FOCUS", primary: "Java Full Stack", note: "Spring & SQL" },
@@ -101,14 +101,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="p-3.5 sm:p-5 rounded-2xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] space-y-1 hover:border-[#192841]/30 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
+              className="p-3 sm:p-5 rounded-2xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] space-y-1 hover:border-[#192841]/30 transition-all duration-200 flex flex-col justify-between"
             >
-              <span className="text-[11px] sm:text-[12px] font-semibold tracking-[0.08em] text-[#192841] uppercase">
+              <span className="text-[10.5px] sm:text-[12px] font-semibold tracking-[0.08em] text-[#192841] uppercase">
                 {item.label}
               </span>
-              <div className="text-[14.5px] sm:text-[17px] font-bold text-[#192841] leading-tight">
+              <div className="text-[13.5px] sm:text-[17px] font-bold text-[#192841] leading-tight">
                 {item.primary}{" "}
-                <span className="text-[11.5px] sm:text-xs font-normal text-[#6F7885] italic block sm:inline">
+                <span className="text-[11px] sm:text-xs font-normal text-[#6F7885] italic block sm:inline">
                   {item.note}
                 </span>
               </div>
@@ -118,7 +118,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
       </section>
 
       {/* 3. FEATURED PROJECTS SNAPSHOT */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-4 border-b border-[#192841]/10">
           <div>
             <span className="text-[12px] font-semibold tracking-[0.08em] text-[#192841] uppercase">
@@ -137,11 +137,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
           </Link>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {topProjects.map((project) => (
             <div
               key={project.id}
-              className="p-5 sm:p-8 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] hover:shadow-[0_8px_24px_rgba(25,40,65,0.08)] hover:border-[#192841]/35 hover:-translate-y-0.5 transition-all duration-200 flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch lg:items-center"
+              className="p-5 sm:p-8 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] hover:shadow-[0_8px_24px_rgba(25,40,65,0.08)] hover:border-[#192841]/35 transition-all duration-200 flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch lg:items-center max-w-full"
             >
               {/* Text Area */}
               <div className="lg:col-span-7 space-y-4">
@@ -167,7 +167,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1 max-w-full">
                   {project.technologies.slice(0, 5).map((tech, tIdx) => (
                     <span
                       key={tIdx}
@@ -181,7 +181,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
                 <div className="pt-2 flex flex-wrap items-center gap-3">
                   <Link
                     to={`/projects/${project.id}`}
-                    className="h-11 px-5 rounded-xl text-[14px] font-bold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center gap-2 transition-all hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto justify-center"
+                    className="h-11 px-5 rounded-xl text-[14px] font-bold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center gap-2 transition-all shadow-2xs group w-full sm:w-auto justify-center"
                   >
                     <span>Read Full Case Study</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -200,7 +200,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
         <div className="text-center pt-2">
           <Link
             to="/projects"
-            className="h-12 px-8 rounded-xl border border-[#192841] bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[15px] inline-flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 shadow-2xs w-full sm:w-auto"
+            className="h-12 px-8 rounded-xl border border-[#192841] bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[15px] inline-flex items-center justify-center gap-2 transition-all shadow-2xs w-full sm:w-auto"
           >
             <span>Explore All 5+ Projects & Code</span>
             <span>→</span>
@@ -210,18 +210,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
       {/* 4. WHY I BUILD PHILOSOPHY */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 sm:p-10 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] relative overflow-hidden space-y-4 hover:border-[#192841]/30 transition-all duration-200">
+        <div className="p-5 sm:p-10 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] relative overflow-hidden space-y-3.5 sm:space-y-4 hover:border-[#192841]/30 transition-all duration-200">
           <div className="absolute top-0 left-0 bottom-0 w-2 bg-[#192841]" />
-          <span className="text-[12px] font-semibold tracking-[0.08em] text-[#192841] uppercase">
+          <span className="text-[11px] sm:text-[12px] font-semibold tracking-[0.08em] text-[#192841] uppercase">
             DEVELOPMENT PHILOSOPHY
           </span>
           <h3 className="text-xl sm:text-2xl font-bold text-[#192841] tracking-tight">
             Why I Build Software
           </h3>
-          <p className="text-[15px] sm:text-[16.5px] text-[#46546A] font-normal leading-[1.65] max-w-3xl">
+          <p className="text-[14.5px] sm:text-[16.5px] text-[#46546A] font-normal leading-[1.65] max-w-3xl">
             I enjoy turning real-world ideas into reliable software that simplifies workflows and solves practical problems. For me, engineering is about understanding the core requirement, planning clean data structures, and delivering resilient applications.
           </p>
-          <blockquote className="text-[14.5px] sm:text-[16px] font-normal text-[#192841] italic pt-1">
+          <blockquote className="text-[14px] sm:text-[16px] font-normal text-[#192841] italic pt-1">
             “Building, learning, and improving — one project at a time.”
           </blockquote>
         </div>
@@ -229,15 +229,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
       {/* 5. PLACEMENT & RESUME CTA (Midnight Blue Dark Section) */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 sm:p-10 md:p-12 rounded-3xl bg-[#192841] text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
-          <div className="space-y-3 max-w-xl">
-            <span className="text-xs font-semibold tracking-widest text-[#F7E7CE] uppercase">
+        <div className="p-6 sm:p-10 md:p-12 rounded-3xl bg-[#192841] text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 max-w-full">
+          <div className="space-y-2.5 sm:space-y-3 max-w-xl">
+            <span className="text-[11px] sm:text-xs font-semibold tracking-widest text-[#F7E7CE] uppercase">
               CURRENT PLACEMENT STATUS
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-white">
               Open to Java Full Stack & Software Roles
             </h2>
-            <p className="text-[14.5px] sm:text-[15px] text-[#FCFAF5]/90 font-normal leading-[1.65]">
+            <p className="text-[14px] sm:text-[15px] text-[#FCFAF5]/90 font-normal leading-[1.65]">
               Available for software engineering placement drives, internships, and technical opportunities starting 2026.
             </p>
           </div>
@@ -245,7 +245,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <button
               onClick={onOpenResumeModal}
-              className="h-12 px-6 rounded-xl text-[14px] sm:text-[15px] font-bold bg-[#F7E7CE] text-[#192841] hover:bg-[#FAF0E2] transition-all shadow-sm hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 group w-full sm:w-auto"
+              className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl text-[14px] sm:text-[15px] font-bold bg-[#F7E7CE] text-[#192841] hover:bg-[#FAF0E2] transition-all shadow-sm inline-flex items-center justify-center gap-2 group w-full sm:w-auto"
             >
               <Download className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
               <span>Download Resume</span>
@@ -253,7 +253,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
             <Link
               to="/contact"
-              className="h-12 px-5 rounded-xl text-[14px] sm:text-[15px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 w-full sm:w-auto"
+              className="h-11 sm:h-12 px-5 rounded-xl text-[14px] sm:text-[15px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all inline-flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               <Mail className="w-4 h-4" />
               <span>Get In Touch</span>
@@ -264,9 +264,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
       {/* 6. LET'S CONNECT */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:border-[#192841]/30 transition-all duration-200">
+        <div className="p-5 sm:p-8 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] flex flex-col lg:flex-row lg:items-center justify-between gap-5 hover:border-[#192841]/30 transition-all duration-200 max-w-full">
           <div>
-            <h3 className="text-lg font-bold text-[#192841]">
+            <h3 className="text-base sm:text-lg font-bold text-[#192841]">
               Let's Connect Directly
             </h3>
             <p className="text-xs text-[#6F7885] font-normal mt-0.5">
@@ -274,12 +274,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <a
               href={siteConfig.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="h-10 px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+              className="h-9 sm:h-10 px-3 sm:px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
             >
               <LinkedinIcon className="w-3.5 h-3.5" />
               <span>LinkedIn</span>
@@ -289,7 +289,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
               href={siteConfig.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="h-10 px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+              className="h-9 sm:h-10 px-3 sm:px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
             >
               <GithubIcon className="w-3.5 h-3.5" />
               <span>GitHub</span>
@@ -299,7 +299,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
               href={siteConfig.leetcodeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="h-10 px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+              className="h-9 sm:h-10 px-3 sm:px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
             >
               <LeetCodeIcon className="w-3.5 h-3.5" />
               <span>LeetCode</span>
@@ -309,7 +309,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
               href={siteConfig.hackerrankUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="h-10 px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+              className="h-9 sm:h-10 px-3 sm:px-3.5 rounded-xl text-xs font-bold bg-[#F5F1E8] border border-[#192841]/15 text-[#192841] hover:bg-[#F7E7CE] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
             >
               <HackerRankIcon className="w-3.5 h-3.5" />
               <span>HackerRank</span>
@@ -317,7 +317,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
             <a
               href={`mailto:${siteConfig.email}`}
-              className="h-10 px-4 rounded-xl text-xs font-bold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
+              className="h-9 sm:h-10 px-3.5 sm:px-4 rounded-xl text-xs font-bold bg-[#192841] text-white hover:bg-[#233758] inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>Email Me</span>
