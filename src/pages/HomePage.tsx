@@ -13,8 +13,6 @@ interface HomePageProps {
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
-  const topProjects = featuredProjects.slice(0, 3);
-
   return (
     <div className="space-y-14 sm:space-y-20 md:space-y-24 pb-14 sm:pb-18 max-w-full overflow-x-hidden">
       
@@ -65,7 +63,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
 
                 <button
                   onClick={onOpenResumeModal}
-                  className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl border border-[#192841]/25 bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[14.5px] sm:text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto text-center"
+                  className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl border border-[#192841]/25 bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[14.5px] sm:text-[15px] inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs group w-full sm:w-auto text-center cursor-pointer"
                 >
                   <Download className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
                   <span>Download Resume</span>
@@ -96,7 +94,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
           {[
             { label: "ACADEMIC", primary: "B.Tech IT", note: "(3rd Year)" },
             { label: "CORE FOCUS", primary: "Java Full Stack", note: "Spring & SQL" },
-            { label: "PROJECTS", primary: "5+ Built", note: "& Live Online" },
+            { label: "PROJECTS", primary: "2+ Featured", note: "& Minor Tools" },
             { label: "COLLEGE", primary: "MKCE", note: "Karur, TN" }
           ].map((item, idx) => (
             <div
@@ -138,7 +136,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
         </div>
 
         <div className="space-y-6 sm:space-y-8">
-          {topProjects.map((project) => (
+          {featuredProjects.map((project) => (
             <div
               key={project.id}
               className="p-5 sm:p-8 rounded-3xl bg-[#FFFEFB] border border-[#192841]/12 shadow-[0_4px_18px_rgba(25,40,65,0.04)] hover:shadow-[0_8px_24px_rgba(25,40,65,0.08)] hover:border-[#192841]/35 transition-all duration-200 flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch lg:items-center max-w-full"
@@ -202,7 +200,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
             to="/projects"
             className="h-12 px-8 rounded-xl border border-[#192841] bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] font-bold text-[15px] inline-flex items-center justify-center gap-2 transition-all shadow-2xs w-full sm:w-auto"
           >
-            <span>Explore All 5+ Projects & Code</span>
+            <span>Explore All Projects & Code</span>
             <span>→</span>
           </Link>
         </div>
@@ -245,7 +243,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <button
               onClick={onOpenResumeModal}
-              className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl text-[14px] sm:text-[15px] font-bold bg-[#F7E7CE] text-[#192841] hover:bg-[#FAF0E2] transition-all shadow-sm inline-flex items-center justify-center gap-2 group w-full sm:w-auto"
+              className="h-11 sm:h-12 px-5 sm:px-6 rounded-xl text-[14px] sm:text-[15px] font-bold bg-[#F7E7CE] text-[#192841] hover:bg-[#FAF0E2] transition-all shadow-sm inline-flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer"
             >
               <Download className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
               <span>Download Resume</span>
