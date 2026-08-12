@@ -11,24 +11,38 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  // Track scroll position for subtle shadow and backdrop
+  // Smart Hide on Scroll Down & Show on Scroll Up
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      const currentScrollY = window.scrollY;
+
+      // Shadow border trigger
+      setIsScrolled(currentScrollY > 10);
+
+      // Smart show/hide logic
+      if (mobileMenuOpen || currentScrollY < 40) {
+        setIsNavVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling DOWN -> Hide
+        setIsNavVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling UP -> Show
+        setIsNavVisible(true);
       }
+
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY, mobileMenuOpen]);
 
-  // Prevent background scroll when mobile menu is open
+  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -40,7 +54,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
     };
   }, [mobileMenuOpen]);
 
-  // Check if a navigation item is currently active
+  // Close mobile menu on page navigation
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setIsNavVisible(true);
+  }, [location.pathname]);
+
+  // Check if nav item is active
   const isItemActive = (path: string) => {
     if (path === "/") {
       return location.pathname === "/";
@@ -50,7 +70,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
 
   return (
     <header
-      className={`sticky top-0 left-0 right-0 z-50 w-full transition-all duration-200 bg-[#FCFAF5]/95 backdrop-blur-md ${
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out bg-[#FCFAF5] ${
+        isNavVisible ? "translate-y-0" : "-translate-y-full"
+      } ${
         isScrolled
           ? "border-b border-[#192841]/12 shadow-[0_2px_14px_rgba(25,40,65,0.06)]"
           : "border-b border-[#192841]/5"
@@ -135,97 +157,88 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResumeModal }) => {
         </div>
       </div>
 
-      {/* Mobile Menu Backdrop & Full Clean Drawer */}
+      {/* Solid Full-Screen Mobile Drawer Menu (100% Solid Background — No Overlap) */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[64px] sm:top-[68px] bottom-0 z-50 flex flex-col justify-start">
-          {/* Backdrop overlay (tap outside to close) */}
-          <div
-            className="fixed inset-0 top-[64px] sm:top-[68px] bg-[#192841]/30 backdrop-blur-xs transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
-          />
+        <div className="md:hidden fixed inset-x-0 top-[64px] sm:top-[68px] bottom-0 z-50 bg-[#FCFAF5] overflow-y-auto px-5 py-6 border-t border-[#192841]/10 flex flex-col justify-between animate-in fade-in slide-in-from-top-1 duration-200">
+          <div className="flex flex-col space-y-2 max-w-md mx-auto w-full">
+            
+            {/* 1. Navigation items (Full Solid Rows) */}
+            {navItems.map((item) => {
+              const active = isItemActive(item.path);
 
-          {/* Drawer Menu Panel */}
-          <div className="relative bg-[#FCFAF5] border-b border-[#192841]/15 shadow-2xl px-5 py-6 animate-in fade-in slide-in-from-top-2 duration-200 max-h-[calc(100vh-68px)] overflow-y-auto">
-            <div className="flex flex-col space-y-2 max-w-md mx-auto">
-              
-              {/* 1. Navigation items */}
-              {navItems.map((item) => {
-                const active = isItemActive(item.path);
-
-                return (
-                  <Link
-                    key={item.label}
-                    to={item.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`w-full min-h-[46px] px-4 py-3 rounded-xl flex items-center text-[15.5px] transition-all duration-200 ${
-                      active
-                        ? "bg-[#192841] text-white font-semibold shadow-xs"
-                        : "text-[#192841] font-medium hover:bg-[#F5F1E8]"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
-
-              {/* 2. Resume Button */}
-              <div className="pt-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenResumeModal();
-                  }}
-                  className="w-full h-12 inline-flex items-center justify-center gap-2 px-4 text-[15px] font-semibold rounded-xl bg-[#192841] text-white hover:bg-[#233758] transition-all shadow-sm active:scale-[0.99]"
+              return (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`w-full min-h-[48px] px-4 py-3 rounded-xl flex items-center text-[16px] transition-all duration-200 ${
+                    active
+                      ? "bg-[#192841] text-white font-bold shadow-xs"
+                      : "text-[#192841] font-semibold bg-[#F5F1E8]/70 hover:bg-[#F5F1E8]"
+                  }`}
                 >
-                  <FileText className="w-[18px] h-[18px] text-white" />
-                  <span>Resume</span>
-                </button>
-              </div>
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
 
-              {/* 3. Compact Social Profiles Row */}
-              <div className="pt-4 border-t border-[#192841]/10 flex items-center justify-around">
-                <a
-                  href={siteConfig.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn Profile"
-                  className="p-2.5 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
-                >
-                  <LinkedinIcon className="w-4 h-4" />
-                </a>
-
-                <a
-                  href={siteConfig.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub Profile"
-                  className="p-2.5 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                </a>
-
-                <a
-                  href={siteConfig.leetcodeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LeetCode Profile"
-                  className="p-2.5 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
-                >
-                  <LeetCodeIcon className="w-4 h-4" />
-                </a>
-
-                <a
-                  href={siteConfig.hackerrankUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="HackerRank Profile"
-                  className="p-2.5 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
-                >
-                  <HackerRankIcon className="w-4 h-4" />
-                </a>
-              </div>
-
+            {/* 2. Resume Button */}
+            <div className="pt-3">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenResumeModal();
+                }}
+                className="w-full h-12 inline-flex items-center justify-center gap-2 px-4 text-[15px] font-bold rounded-xl bg-[#192841] text-white hover:bg-[#233758] transition-all shadow-sm active:scale-[0.99]"
+              >
+                <FileText className="w-[18px] h-[18px] text-white" />
+                <span>Download / View Resume</span>
+              </button>
             </div>
+
+            {/* 3. Compact Social Profiles Row */}
+            <div className="pt-5 border-t border-[#192841]/10 flex items-center justify-around w-full">
+              <a
+                href={siteConfig.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
+                className="p-3 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
+              >
+                <LinkedinIcon className="w-4 h-4" />
+              </a>
+
+              <a
+                href={siteConfig.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Profile"
+                className="p-3 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
+              >
+                <GithubIcon className="w-4 h-4" />
+              </a>
+
+              <a
+                href={siteConfig.leetcodeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LeetCode Profile"
+                className="p-3 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
+              >
+                <LeetCodeIcon className="w-4 h-4" />
+              </a>
+
+              <a
+                href={siteConfig.hackerrankUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="HackerRank Profile"
+                className="p-3 rounded-xl bg-[#F5F1E8] text-[#192841] hover:bg-[#F7E7CE] transition-colors"
+              >
+                <HackerRankIcon className="w-4 h-4" />
+              </a>
+            </div>
+
           </div>
         </div>
       )}

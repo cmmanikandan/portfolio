@@ -60,11 +60,11 @@ export const App: React.FC = () => {
         {/* Short Branded Entrance Screen (650–800ms) */}
         <IntroLoader />
 
-        {/* Global Solid Navbar */}
+        {/* Global Smart Navbar */}
         <Navbar onOpenResumeModal={() => setIsResumeModalOpen(true)} />
 
-        {/* Dynamic Route Pages with Fast Smooth Transitions */}
-        <main className="flex-1 flex flex-col bg-[#FCFAF5]">
+        {/* Dynamic Route Pages with Top Padding for Fixed Navbar */}
+        <main className="flex-1 flex flex-col bg-[#FCFAF5] pt-[64px] sm:pt-[68px] md:pt-[72px]">
           <AnimatedRoutes onOpenResumeModal={() => setIsResumeModalOpen(true)} />
         </main>
 
