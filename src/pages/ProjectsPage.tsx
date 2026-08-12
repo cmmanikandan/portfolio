@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { featuredProjects, minorProjects } from "../data/projectsData";
 import { ProjectMockupPreview } from "../components/ProjectMockupPreview";
-import { ArrowRight, ExternalLink, Sparkles, FolderGit2 } from "lucide-react";
+import { ArrowRight, ExternalLink, Sparkles, FolderGit2, Lock } from "lucide-react";
 import { GithubIcon } from "../components/BrandIcons";
 
 export const ProjectsPage: React.FC = () => {
@@ -22,7 +22,7 @@ export const ProjectsPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Featured Projects Directory */}
+      {/* Featured Projects Directory (2 Core Full-Scale Flagships) */}
       <div className="space-y-8 sm:space-y-12">
         {featuredProjects.map((project, idx) => {
           const isEven = idx % 2 === 0;
@@ -88,34 +88,29 @@ export const ProjectsPage: React.FC = () => {
                     <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </Link>
 
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="h-11 px-4 rounded-xl text-[13.5px] font-semibold border border-[#192841]/25 text-[#192841] bg-[#F5F1E8] hover:bg-[#F7E7CE] hover:-translate-y-0.5 inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs w-full sm:w-auto"
-                    >
-                      <GithubIcon className="w-3.5 h-3.5" />
-                      <span>GitHub</span>
-                    </a>
-                  )}
-
                   {project.liveDemoUrl && (
                     <a
                       href={project.liveDemoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="h-11 px-3 inline-flex items-center justify-center gap-1.5 text-[13.5px] font-semibold text-[#192841] hover:text-[#233758] transition-colors link-hover w-full sm:w-auto"
+                      className="h-11 px-4 rounded-xl text-[13.5px] font-semibold border border-[#192841]/25 text-[#192841] bg-[#F7E7CE] hover:bg-[#FAF0E2] hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 transition-all shadow-2xs w-full sm:w-auto"
                     >
-                      <span>Live Demo</span>
+                      <span>Launch Live App</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
+                  )}
+
+                  {project.isPrivateRepo && (
+                    <span className="h-11 px-3.5 rounded-xl text-[12.5px] font-medium border border-[#192841]/15 text-[#6F7885] bg-[#F5F1E8] inline-flex items-center justify-center gap-1.5 shadow-2xs w-full sm:w-auto">
+                      <Lock className="w-3.5 h-3.5 text-[#6F7885]" />
+                      <span>Private Repo</span>
+                    </span>
                   )}
                 </div>
               </div>
 
               {/* Visual Preview Column */}
-              <div className={`lg:col-span-6 w-full rounded-2xl overflow-hidden border border-[#192841]/15 transition-transform duration-200 group-hover:scale-[1.01] min-h-[190px] sm:min-h-[220px] ${isEven ? "" : "lg:order-1"}`}>
+              <div className={`lg:col-span-6 w-full rounded-2xl overflow-hidden transition-transform duration-200 group-hover:scale-[1.01] min-h-[220px] sm:min-h-[260px] ${isEven ? "" : "lg:order-1"}`}>
                 <Link to={`/projects/${project.id}`}>
                   <ProjectMockupPreview project={project} />
                 </Link>
@@ -132,7 +127,7 @@ export const ProjectsPage: React.FC = () => {
             ADDITIONAL EXPERIMENTS & CLI UTILITIES
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#192841] mt-1">
-            More Code & Concepts
+            Minor Projects & Code Concepts
           </h2>
         </div>
 

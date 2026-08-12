@@ -1,3 +1,6 @@
+import qubinkImg from "../assets/qubink.jpeg";
+import finovaImg from "../assets/finova.jpeg";
+
 export interface Project {
   id: string;
   number: string;
@@ -11,7 +14,9 @@ export interface Project {
   technologies: string[];
   category: string;
   highlight: string;
+  image?: string;
   githubUrl?: string;
+  isPrivateRepo?: boolean;
   liveDemoUrl?: string;
   myRole: string;
   challenges: string;
@@ -21,7 +26,7 @@ export interface Project {
   mockupType: "marketplace" | "finance" | "service" | "business" | "productivity";
 }
 
-// 2 Core Featured Full-Stack Projects
+// 2 Core Featured Full-Stack Projects with Verified Live Links & Screenshots
 export const featuredProjects: Project[] = [
   {
     id: "qubink",
@@ -51,8 +56,9 @@ export const featuredProjects: Project[] = [
     technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Firebase", "Supabase", "Cloudinary", "Razorpay"],
     category: "Full Stack Web Application",
     highlight: "Making campus printing simpler.",
-    githubUrl: "https://github.com/cmmanikandan/qubink",
-    liveDemoUrl: "https://qubink-demo.vercel.app",
+    image: qubinkImg,
+    isPrivateRepo: true,
+    liveDemoUrl: "https://qubink.vercel.app/",
     myRole: "Lead Full Stack Developer & System Designer — architected the document processing pipeline, payment gateway integration, and real-time order queue data structures.",
     challenges: "Handling large multi-file uploads cleanly with Cloudinary without browser freezing, and building a real-time FIFO order queue synchronized between vendor and student dashboards.",
     learnings: [
@@ -92,8 +98,9 @@ export const featuredProjects: Project[] = [
     technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "Firebase", "PWA"],
     category: "Finance & Productivity Web Application",
     highlight: "Track. Plan. Improve.",
-    githubUrl: "https://github.com/cmmanikandan/finova",
-    liveDemoUrl: "https://finova-app.vercel.app",
+    image: finovaImg,
+    isPrivateRepo: true,
+    liveDemoUrl: "https://cmfinova.vercel.app/",
     myRole: "Full Stack Developer — implemented client-side state persistence, Supabase schema design, offline caching, and responsive UI components.",
     challenges: "Ensuring zero latency when adding expenses offline via PWA Service Workers and merging conflict-free state upon reconnecting to network.",
     learnings: [
@@ -117,7 +124,7 @@ export interface MinorProject {
   liveDemoUrl?: string;
 }
 
-// Minor Projects & Utilities (Easy to add/edit more projects here anytime)
+// Minor Projects & Utilities (Easily extensible for any future projects)
 export const minorProjects: MinorProject[] = [
   {
     id: "helpdesk",
